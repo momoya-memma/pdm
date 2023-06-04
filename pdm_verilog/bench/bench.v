@@ -3,14 +3,14 @@
 module sim_result;/*このモジュール名がsim実行結果のファイル名になる。*/
   reg clk ;/*テストベンチ内で使用するレジスタを宣言する*/
   reg ck_rst;
-  wire [9:0] out_sig;
+  wire out_sig;
 
 
   parameter CYC = 10;/*10ns = 100MHz*/
 
   always #(CYC/2) clk=~clk;
 
-  wave_generator wave_generator ( /*sim対象のモジュールをdutという名前でインスタンス化*/
+  top_module top_module ( /*sim対象のモジュールをdutという名前でインスタンス化*/
     .out_sig (out_sig)/*モジュールのポートCLK100MHZに（）の中身の値を対応づける*/
     , .ck_rst (ck_rst)
     , .CLK100MHZ (clk)
@@ -33,7 +33,8 @@ module sim_result;/*このモジュール名がsim実行結果のファイル名
 
 
     // Stop simulation
-	#(CYC*110000000)   $finish;
+	//#(CYC*110000000)   $finish;
+	#(CYC*11000000)   $finish;
   end
   
 endmodule
